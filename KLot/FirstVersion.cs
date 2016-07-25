@@ -11,11 +11,8 @@ namespace KLot
         static void Main(string[] args)
         {
             //  START
-
             //  INITIALIZE an empty ARRAY to hold USER’s lottery numbers(userArray)
-            //int[] userArray = new int[6];
             List<int> userArray = new List<int>();
-
             //  INITIALIZE an ARRAY with 6 Numbers to hold USER’s lottery numbers(resultArray)
             List<int> resultArray = new List<int>() { 14, 45, 34, 3, 26, 40 };
             //  INITIALIZE an empty ARRAY to store the the matching Numbers(winningArray)
@@ -24,8 +21,7 @@ namespace KLot
             while (userArray.Count < 6)
             {
                 //  Prompt USER to enter Number
-
-                Console.WriteLine($"Please enter your lottey number: ");
+                Console.WriteLine($"Please enter your lottery number: ");
                 try
                 {
                     int userInput = int.Parse(Console.ReadLine());
@@ -34,8 +30,7 @@ namespace KLot
                     if (userInputExists)
                     {
                         Console.WriteLine("You have already picked this number");
-                    }
-                 
+                    }                 
                     //  ELSE IF Number IS LESS THAN( < ) 1 OR( | | ) IS GREATER THAN( > ) 49, THEN,
                     else if (userInput < 1 || userInput > 49)
                     {
@@ -43,7 +38,6 @@ namespace KLot
                         Console.WriteLine("Please choose a number between 1 and 49");
                         //  Prompt USER to enter Number
                     }
-
                     //  ELSE place Number in userArray
                     else
                     {
@@ -55,20 +49,16 @@ namespace KLot
                 }
                 catch (Exception ex)
                 {
-
                     Console.WriteLine($"This is not vaild. Could you please enter a numeric value - {ex.Message}");
                 }
                 //  Get Number
-
             }
             // ENDWHILE
-
 
             Console.WriteLine("You have " + userArray.Count + " lottery numbers chosen");
             userArray.Sort();
             string displayUserArray = string.Join(",", userArray.ToArray());
             Console.WriteLine(displayUserArray);
-
 
             //  Display resultArray
             string displayResultArray = string.Join(",", resultArray.ToArray());
@@ -99,15 +89,15 @@ namespace KLot
             //switch (displayWinningArray.Length)
             switch (winningArray.Count)
             {
-                //  0 : Display message “You Lose”,
-                //  1 : Display message “You Lose”,
-                //  2 : Display message “You Lose”,
+                //  0 : Display message “You Lose”,               
                 case 0:
                     Console.WriteLine($"You Lose!!! You matched {winningArray.Count}. Better luck next time");
                     break;
+                //  1 : Display message “You Lose”,
                 case 1:
                     Console.WriteLine($"You Lose!!! You only matched {winningArray.Count} number. The number was {displayWinningArray} ");
                     break;
+                //  2 : Display message “You Lose”,
                 case 2:
                     Console.WriteLine($"You Lose!!! You matched {winningArray.Count} numbers. The numbers were {displayWinningArray} ");
                     break;
@@ -131,9 +121,7 @@ namespace KLot
                     Console.WriteLine("Unknown value");
                     break;
             }
-
             //  ENDCASE
-            //Console.WriteLine(displayWinningArray);
             //  STOP
             Console.ReadLine();
         }

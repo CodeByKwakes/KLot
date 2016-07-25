@@ -9,8 +9,7 @@ namespace KLotVersion2
     class Program
     {
         static void Main(string[] args)
-        {
-            
+        {            
             bool playGame = true;
 
             while (playGame)
@@ -27,11 +26,10 @@ namespace KLotVersion2
                     if (!resultArray.Contains(resultArrayNumber))
                     {
                         resultArray[x] = resultArrayNumber;
-
                     }
+                    //If it contains, restart random process
                     else
-                    {
-                        //If it contains, restart random process
+                    {  
                         x--;
                     }
                 }
@@ -61,12 +59,10 @@ namespace KLotVersion2
                         {
                             Console.WriteLine("You entered: " + userInput);
                             userArray.Add(userInput);
-                            //Console.WriteLine(userArray.Count);
                         }
                     }
                     catch (Exception ex)
                     {
-
                         Console.WriteLine($"This is not vaild. Could you please enter a numeric value - {ex.Message}");
                     }
                 }
@@ -75,7 +71,6 @@ namespace KLotVersion2
                 userArray.Sort();
                 string displayUserArray = string.Join(",", userArray.ToArray());
                 Console.WriteLine(displayUserArray);
-
 
                 //  Display resultArray
                 string displayResultArray = string.Join(",", resultArray.ToArray());
