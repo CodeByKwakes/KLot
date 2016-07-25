@@ -139,14 +139,18 @@ namespace KLotVersion2
                 Console.WriteLine();
 
                 
-                Console.WriteLine("Would you like to play again. \n Type y for Yes \n Type n for No \n");
+                Console.WriteLine("Would you like to play again. \nPress y for Yes \nOr any key to exit the game \n");
+
+                
                 ConsoleKeyInfo info = Console.ReadKey();
+
                 if (info.KeyChar == 'y')
                 {
                     Console.Clear();
                 }
                 //else if (info.KeyChar != 'n')
                 //{
+                //    Console.WriteLine();
                 //    Console.WriteLine("I did not understand you answer. \nPress y if you would like to play again \nOr \nPress n if you would like to exist the game");
                 //    Console.ReadKey();
                 //}
