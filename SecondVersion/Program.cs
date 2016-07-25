@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KLotVersion2
 {
@@ -41,7 +39,29 @@ namespace KLotVersion2
                 Console.ReadLine();
                 while (userArray.Count < 6)
                 {
-                    Console.WriteLine($"Please enter your lottery number: ");
+                    switch (userArray.Count)
+                    {
+                        case 0:
+                            Console.WriteLine($"Please enter your 1st lottery number: ");
+                            break;
+                        case 1:
+                            Console.WriteLine($"Please enter your 2nd lottery number: ");
+                            break;
+                        case 2:
+                            Console.WriteLine($"Please enter your 3rd lottery number: ");
+                            break;
+                        case 3:
+                            Console.WriteLine($"Please enter your 4th lottery number: ");
+                            break;
+                        case 4:
+                            Console.WriteLine($"Please enter your 5th lottery number: ");
+                            break;
+                        case 5:
+                            Console.WriteLine($"Please enter your 6th lottery number: ");
+                            break;
+
+                        default: break;
+                    }
                     try
                     {
                         int userInput = int.Parse(Console.ReadLine());
