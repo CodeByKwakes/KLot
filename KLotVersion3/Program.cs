@@ -16,7 +16,7 @@ namespace KLotVersion3
         {
             for (int i = 0; i < 6; i++)
             {
-                Console.Write("\nPlease Enter a lottery number: ");
+                Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
                 userArray[i] = int.Parse(Console.ReadLine());
             }
 
