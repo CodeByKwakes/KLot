@@ -7,30 +7,21 @@ using System.Threading.Tasks;
 namespace KLotVersion3
 {
     //int userInput;
-    
-    //public void IsNumberVaild(int userInput)
-    //{
-    //    bool userInputExists = userArray.Contains(userInput);
-    //    if (userInputExists)
-    //    {
-    //        Console.Write("\nYou Have already picked this number");
-    //    }
-    //    else
-    //    {
-    //        return;
-    //    }
-    //}
+
     class EnterUserNumbers
     {
         int[] userArray = new int[6];
 
         public void InputLotteryNumbers()
         {
+            ValidateUserNumbers check = new ValidateUserNumbers();
             for (int i = 0; i < 6; i++)
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
                 userArray[i] = int.Parse(Console.ReadLine());
-
+                if (!check.IsNumberVaild(userArray, userArray[i]))
+                    i--;
+                
             }
 
             //userInput = int.Parse(Console.ReadLine());
@@ -42,7 +33,22 @@ namespace KLotVersion3
             //Console.Write("\nThe number you inputed was: " + userInput);
         }
     }
-    
+    class ValidateUserNumbers
+    {
+        public bool IsNumberVaild(int[] arr, int input)
+        {
+            
+            if (input < 1 || input > 49)
+            {
+                Console.Write("\nPlease picked a number between 1 and 49");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 
     class Program
     {
