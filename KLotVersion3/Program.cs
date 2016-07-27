@@ -35,10 +35,34 @@ namespace KLotVersion3
 
         public void ShowUserNumbers()
         {
-            Console.Write("\nThe number you inputed was: {0}, {1}, {2}, {3}, {4}, {5}", userArray[0], userArray[1], userArray[2], userArray[3], userArray[4], userArray[5]);
+            Console.Write("\nThe number you inputed was: {0}, {1}, {2}, {3}, {4}, {5} \n\n", userArray[0], userArray[1], userArray[2], userArray[3], userArray[4], userArray[5]);
             //Console.Write("\nThe number you inputed was: " + userInput);
         }
+
+        public void GenerateRandomNumbers()
+        {
+            Random randomNumbers = new Random();
+            int[] resultArray = new int[6];
+            int resultArrayNumber;
+
+            for (int x = 0; x < resultArray.Length; x++)
+            {
+                resultArrayNumber = randomNumbers.Next(0, 50);
+                if (resultArray.Contains(resultArrayNumber))
+                {
+                    x--;
+                }
+                else
+                {
+                    resultArray[x] = resultArrayNumber;
+                }
+            }
+            Array.Sort(resultArray);
+            Console.WriteLine("Tonights winnig numbers are : {0}, {1}, {2}, {3}, {4}, {5} \n\n", resultArray[0], resultArray[1], resultArray[2], resultArray[3], resultArray[4], resultArray[5]);
+        }
     }
+
+
 
     class ValidateUserNumbers
     {
@@ -82,6 +106,7 @@ namespace KLotVersion3
         }
     }
 
+
     class Program
     {
         static void Main(string[] args)
@@ -90,6 +115,7 @@ namespace KLotVersion3
             kLot.InputLotteryNumbers();
             Console.WriteLine("\n\n");
             kLot.ShowUserNumbers();
+            kLot.GenerateRandomNumbers();
             Console.ReadLine();
         }
     }
