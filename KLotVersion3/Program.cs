@@ -9,7 +9,7 @@ namespace KLotVersion3
     class EnterUserNumbers
     {
         int[] userArray = new int[6];
-        int[] resultArray = new int[6];
+        int[] resultArray = new int[6] {14, 25, 8, 3, 45, 33};
         int[] winningArray = new int[6];
 
         public void InputLotteryNumbers()
@@ -84,13 +84,13 @@ namespace KLotVersion3
     {
         public void CalculateResults(int[] user, int[] random, int[] win)
         {
-            for (int i = 0; i < user.Count(); i++)
+            for (int i = 0; i < user.Length; i++)
             {
-                for (int j = 0; j < random.Count(); j++)
+                for (int j = 0; j < random.Length; j++)
                 {
                     if (user[i] == random[j])
                     {
-                        Array.Copy(user, win, user[i]);
+                        win[i] = user[i];
                     }
                 }
             }
@@ -146,7 +146,7 @@ namespace KLotVersion3
             kLot.InputLotteryNumbers();
             Console.WriteLine("\n\n");
             kLot.ShowUserNumbers();
-            kLot.GenerateRandomNumbers();
+            //kLot.GenerateRandomNumbers();
             kLot.DisplayWinningResults();
             Console.ReadLine();
         }
