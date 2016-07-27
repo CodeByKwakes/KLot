@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace KLotVersion3
 {
-    //int userInput;
-
     class EnterUserNumbers
     {
         int[] userArray = new int[6];
+        int[] resultArray = new int[6];
+        int[] winningArray = new int[6];
 
         public void InputLotteryNumbers()
         {
@@ -29,20 +29,21 @@ namespace KLotVersion3
                     userArray[i] = numberInput;
                 }               
             }
-
-            //userInput = int.Parse(Console.ReadLine());
         }
 
         public void ShowUserNumbers()
         {
-            Console.Write("\nThe number you inputed was: {0}, {1}, {2}, {3}, {4}, {5} \n\n", userArray[0], userArray[1], userArray[2], userArray[3], userArray[4], userArray[5]);
-            //Console.Write("\nThe number you inputed was: " + userInput);
+            Console.Write("\nThe numbers you inputed was: \n");
+            for (int i = 0; i < 6; i++)
+            {
+                Console.Write("{0}\t", userArray[i]);
+            }
+            Console.WriteLine();
         }
 
         public void GenerateRandomNumbers()
         {
             Random randomNumbers = new Random();
-            int[] resultArray = new int[6];
             int resultArrayNumber;
 
             for (int x = 0; x < resultArray.Length; x++)
@@ -58,11 +59,43 @@ namespace KLotVersion3
                 }
             }
             Array.Sort(resultArray);
-            Console.WriteLine("Tonights winnig numbers are : {0}, {1}, {2}, {3}, {4}, {5} \n\n", resultArray[0], resultArray[1], resultArray[2], resultArray[3], resultArray[4], resultArray[5]);
+            Console.Write("Tonights winning numbers are : \n");
+            for (int i = 0; i < 6; i++)
+            {
+                Console.Write("{0}\t", resultArray[i]);
+            }
+            Console.WriteLine();
+        }
+
+        public void DisplayWinningResults()
+        {
+            MatchBothArrays result = new MatchBothArrays();
+            result.CalculateResults(userArray, resultArray, winningArray);
+            Console.WriteLine("You matched: ");
+
+            for (int i = 0; i < winningArray.Length; i++)
+            {
+                Console.Write("{0}\t", winningArray[i]);
+            }
         }
     }
 
-
+    class MatchBothArrays
+    {
+        public void CalculateResults(int[] user, int[] random, int[] win)
+        {
+            for (int i = 0; i < user.Count(); i++)
+            {
+                for (int j = 0; j < random.Count(); j++)
+                {
+                    if (user[i] == random[j])
+                    {
+                        Array.Copy(user, win, user[i]);
+                    }
+                }
+            }
+        }
+    }
 
     class ValidateUserNumbers
     {
@@ -89,7 +122,6 @@ namespace KLotVersion3
                 Console.WriteLine("You have already chosen number " + input);
                 status = true;
             }
-
             return status;
         }
 
@@ -101,7 +133,6 @@ namespace KLotVersion3
                 Console.Write("\nPlease picked a number between 1 and 49");
                 status = true;
             }
-
             return status;
         }
     }
@@ -116,6 +147,7 @@ namespace KLotVersion3
             Console.WriteLine("\n\n");
             kLot.ShowUserNumbers();
             kLot.GenerateRandomNumbers();
+            kLot.DisplayWinningResults();
             Console.ReadLine();
         }
     }
