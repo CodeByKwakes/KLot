@@ -17,10 +17,16 @@ namespace KLotVersion3
             userInput = int.Parse(Console.ReadLine());
         }
 
+        public void ShowUserNumbers()
+        {
+            Console.Write("\nThe number you inputed was: " + userInput);
+        }
+
         static void Main(string[] args)
         {
             Program kLot = new Program();
             kLot.InputLotteryNumbers();
+            kLot.ShowUserNumbers();
             Console.ReadLine();
         }
     }
