@@ -19,10 +19,8 @@ namespace KLotVersion3
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
                 int numberInput = int.Parse(Console.ReadLine());
-
-
-              
-                if (check.IsDupliate(userArray, numberInput) || !check.IsNumberVaild(numberInput))
+               
+                if (check.IsDupliate(userArray, numberInput) || check.IsNotVaildNumber(numberInput))
                 {
                     i--;
                 }                    
@@ -44,6 +42,21 @@ namespace KLotVersion3
 
     class ValidateUserNumbers
     {
+        //public bool IsNotNumber(int input)
+        //{
+        //    bool status = false;
+        //    try
+        //    {
+        //        input = int.Parse(Console.ReadLine());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(input + " is not a vaild number. Could you please enter a numeric value - " + ex.Message);
+        //        status = true;
+        //    }
+        //    return status;
+        //}
+        
         public bool IsDupliate(int[] arr, int input)
         {
             bool status = false;
@@ -56,17 +69,16 @@ namespace KLotVersion3
             return status;
         }
 
-        public bool IsNumberVaild(int input)
+        public bool IsNotVaildNumber(int input)
         {
-             if (input < 1 || input > 49)
+            bool status = false;
+            if (input < 1 || input > 49)
             {
                 Console.Write("\nPlease picked a number between 1 and 49");
-                return false;
+                status = true;
             }
-            else
-            {
-                return true;
-            }
+
+            return status;
         }
     }
 
