@@ -13,7 +13,7 @@ namespace KLotVersion3
             EnterUserNumbers kLot = new EnterUserNumbers();
             kLot.InputLotteryNumbers();
             Console.WriteLine("\n\n");
-            kLot.ShowUserNumbers();
+            kLot.ShowUserNumbers(kLot.userArray);
             kLot.GenerateRandomNumbers();
             kLot.DisplayWinningResults();
             kLot.WinningMessage();
@@ -23,7 +23,7 @@ namespace KLotVersion3
 
     class EnterUserNumbers
     {
-        int[] userArray = new int[6];
+        public int[] userArray = new int[6];
         int[] resultArray = new int[6];
         List<int> winningArray = new List<int>();
 
@@ -43,13 +43,14 @@ namespace KLotVersion3
                 {
                     userArray[i] = numberInput;
                 }
+
             }
         }
 
-        public void ShowUserNumbers()
+        public void ShowUserNumbers(int[] userArray)
         {
-            Console.Write("\nThe numbers you inputed was: \n");
-            for (int i = 0; i < 6; i++)
+            Console.Write("\nThe numbers you entered were: \n");
+            for (int i = 0; i < userArray.Length; i++)
             {
                 Console.Write("{0}\t", userArray[i]);
             }
@@ -80,7 +81,7 @@ namespace KLotVersion3
                 Console.Write("{0}\t", resultArray[i]);
             }
             Console.WriteLine();
-        }
+        } 
 
         public void DisplayWinningResults()
         {
