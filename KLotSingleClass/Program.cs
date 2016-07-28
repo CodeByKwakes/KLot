@@ -16,24 +16,47 @@ namespace KLotSingleClass
 
         static void Main(string[] args)
         {
-            Program kLot = new Program();
-            kLot.InputLotteryNumbers(kLot.userArray);
-            Console.WriteLine("\n\n");
-            kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
-            kLot.GenerateRandomNumbers(kLot.resultArray);
-            kLot.ShowNumbers(kLot.resultArray, "Tonights winning numbers are : \n");
-            kLot.DisplayWinningResults(kLot.winningArray);
-            kLot.WinningMessage();
-            Console.ReadLine();
-        }
+            bool playGame = true;
+            while (playGame)
+            {
+                Program kLot = new Program();
+                Console.WriteLine("Welcome to K-Lot \nPress Return to play");
+                Console.ReadLine();
+                kLot.InputLotteryNumbers(kLot.userArray);
+                Console.WriteLine("\n\n");
+                kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
+                kLot.GenerateRandomNumbers(kLot.resultArray);
+                kLot.ShowNumbers(kLot.resultArray, "Tonights winning numbers are : \n");
+                kLot.DisplayWinningResults(kLot.winningArray);
+                kLot.WinningMessage();
 
-        // 
+                Console.WriteLine();
+                Console.WriteLine("Would you like to play again. \nPress y for Yes \nOr any key to exit the game \n");
+                ConsoleKeyInfo info = Console.ReadKey();
+
+                if (info.KeyChar == 'y')
+                {
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("OK. Goodbye and have a great day \nPress Return to Exit");
+                    playGame = false;
+                    Console.ReadLine();
+                }
+            }
+        }
+            
+
+
         public void InputLotteryNumbers(int[] arr)
         {
             
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
+
                 numberInput = int.Parse(Console.ReadLine());
 
                 if (IsValidationFailed())
@@ -44,18 +67,36 @@ namespace KLotSingleClass
                 {
                     arr[i] = numberInput;
                 }
-
             }
         }
+
         public bool IsValidationFailed()
         {
             bool status = false;
+            
             if (IsDuplicate(userArray, numberInput) || IsNotVaildNumber(numberInput))
             {
                 status = true;
             }
             return status;
         }
+
+        //public bool IsWrongInput()
+        //{
+        //    bool status = false;
+        //    try
+        //    {
+        //        numberInput = int.Parse(Console.ReadLine());
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        Console.WriteLine($"This is not vaild. Could you please enter a numeric value - {ex.Message}");
+        //        status = true;
+        //    }
+        //    return status;
+        //}
+
         public bool IsDuplicate(int[] arr, int input)
         {
             bool status = false;
@@ -66,6 +107,7 @@ namespace KLotSingleClass
             }
             return status;
         }
+
         public bool IsNotVaildNumber(int input)
         {
             bool status = false;
@@ -76,6 +118,7 @@ namespace KLotSingleClass
             }
             return status;
         }
+
         public void ShowNumbers(int[] arr, string message)
         {
             Console.Write(message);
@@ -85,6 +128,7 @@ namespace KLotSingleClass
             }
             Console.WriteLine();
         }
+
         public void GenerateRandomNumbers(int[] arr)
         {
             Random randomNumbers = new Random();
@@ -104,6 +148,7 @@ namespace KLotSingleClass
             }
             Array.Sort(arr);
         }
+
         public void CalculateResults(int[] userArr, int[] resultArr, List<int> winningArr)
         {
             for (int i = 0; i < userArr.Length; i++)
@@ -117,6 +162,7 @@ namespace KLotSingleClass
                 }
             }
         }
+
         public void DisplayWinningResults(List<int> arr)
         {
             CalculateResults(userArray, resultArray, winningArray);
@@ -154,13 +200,6 @@ namespace KLotSingleClass
                     break;
             }
         }
-
-        
-
-        
-
-       
-
 
     }
 }
