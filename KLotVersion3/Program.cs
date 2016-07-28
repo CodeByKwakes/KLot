@@ -16,6 +16,7 @@ namespace KLotVersion3
             kLot.ShowUserNumbers();
             kLot.GenerateRandomNumbers();
             kLot.DisplayWinningResults();
+            kLot.WinningMessage();
             Console.ReadLine();
         }
     }
@@ -85,7 +86,7 @@ namespace KLotVersion3
         {
             MatchBothArrays result = new MatchBothArrays();
             result.CalculateResults(userArray, resultArray, winningArray);
-            Console.WriteLine("You matched: " + winningArray.Count);
+            Console.WriteLine("You matched: " + winningArray.Count + " numbers:");
 
 
             foreach (int item in winningArray)
@@ -93,11 +94,33 @@ namespace KLotVersion3
                 Console.Write(item + "\t");
             }
 
-            //Console.WriteLine("You matched: " + winningArray.Length + " length method");
-            //for (int i = 0; i < winningArray.Count(); i++)
-            //{
-            //    Console.Write("{0}\t", winningArray[i]);
-            //}
+        }
+
+        public void WinningMessage()
+        {
+            switch (winningArray.Count)
+            {
+                case 0:
+                case 1:
+                case 2:
+                    Console.WriteLine("You Lose!!! ");
+                    break;
+                case 3:
+                    Console.WriteLine("You Win £10!!! ");
+                    break;
+                case 4:
+                    Console.WriteLine("You Win £1000!!! ");
+                    break;
+                case 5:
+                    Console.WriteLine("You Win £20,000!!! ");
+                    break;
+                case 6:
+                    Console.WriteLine("You Win £100,000!!! ");
+                    break;
+                default:
+                    Console.WriteLine("Unknown value");
+                    break;
+            }
         }
     }
 
