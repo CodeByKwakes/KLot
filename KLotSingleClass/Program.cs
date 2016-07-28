@@ -18,6 +18,12 @@ namespace KLotSingleClass
             Program kLot = new Program();
 
             kLot.InputLotteryNumbers();
+            Console.WriteLine("\n\n");
+            kLot.ShowUserNumbers(kLot.userArray);
+            kLot.GenerateRandomNumbers();
+            kLot.DisplayWinningResults();
+            kLot.WinningMessage();
+            Console.ReadLine();
         }
 
         public void InputLotteryNumbers()
