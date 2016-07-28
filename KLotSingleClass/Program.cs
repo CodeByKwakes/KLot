@@ -12,88 +12,120 @@ namespace KLotSingleClass
         int[] userArray = new int[6];
         int[] resultArray = new int[6];
         List<int> winningArray = new List<int>();
+        int numberInput;
 
         static void Main(string[] args)
         {
             Program kLot = new Program();
-
-            kLot.InputLotteryNumbers();
+            kLot.InputLotteryNumbers(kLot.userArray);
             Console.WriteLine("\n\n");
-            kLot.ShowUserNumbers(kLot.userArray);
-            kLot.GenerateRandomNumbers();
-            kLot.DisplayWinningResults();
+            kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
+            kLot.GenerateRandomNumbers(kLot.resultArray);
+            kLot.ShowNumbers(kLot.resultArray, "Tonights winning numbers are : \n");
+            kLot.DisplayWinningResults(kLot.winningArray);
             kLot.WinningMessage();
             Console.ReadLine();
         }
 
-        public void InputLotteryNumbers()
+        // 
+        public void InputLotteryNumbers(int[] arr)
         {
             
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
-                int numberInput = int.Parse(Console.ReadLine());
+                numberInput = int.Parse(Console.ReadLine());
 
-                if (IsDupliate(userArray, numberInput) || IsNotVaildNumber(numberInput))
+                if (IsValidationFailed())
                 {
                     i--;
                 }
                 else
                 {
-                    userArray[i] = numberInput;
+                    arr[i] = numberInput;
                 }
 
             }
         }
-
-        public void ShowUserNumbers(int[] userArray)
+        public bool IsValidationFailed()
         {
-            Console.Write("\nThe numbers you entered were: \n");
-            for (int i = 0; i < userArray.Length; i++)
+            bool status = false;
+            if (IsDuplicate(userArray, numberInput) || IsNotVaildNumber(numberInput))
             {
-                Console.Write("{0}\t", userArray[i]);
+                status = true;
+            }
+            return status;
+        }
+        public bool IsDuplicate(int[] arr, int input)
+        {
+            bool status = false;
+            if (arr.Contains(input))
+            {
+                Console.WriteLine("You have already chosen number " + input);
+                status = true;
+            }
+            return status;
+        }
+        public bool IsNotVaildNumber(int input)
+        {
+            bool status = false;
+            if (input < 1 || input > 49)
+            {
+                Console.Write("\nPlease picked a number between 1 and 49");
+                status = true;
+            }
+            return status;
+        }
+        public void ShowNumbers(int[] arr, string message)
+        {
+            Console.Write(message);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write("{0}\t", arr[i]);
             }
             Console.WriteLine();
         }
-
-        public void GenerateRandomNumbers()
+        public void GenerateRandomNumbers(int[] arr)
         {
             Random randomNumbers = new Random();
             int resultArrayNumber;
 
-            for (int x = 0; x < resultArray.Length; x++)
+            for (int x = 0; x < arr.Length; x++)
             {
                 resultArrayNumber = randomNumbers.Next(0, 50);
-                if (resultArray.Contains(resultArrayNumber))
+                if (arr.Contains(resultArrayNumber))
                 {
                     x--;
                 }
                 else
                 {
-                    resultArray[x] = resultArrayNumber;
+                    arr[x] = resultArrayNumber;
                 }
             }
-            Array.Sort(resultArray);
-            Console.Write("Tonights winning numbers are : \n");
-            for (int i = 0; i < 6; i++)
-            {
-                Console.Write("{0}\t", resultArray[i]);
-            }
-            Console.WriteLine();
+            Array.Sort(arr);
         }
-
-        public void DisplayWinningResults()
+        public void CalculateResults(int[] userArr, int[] resultArr, List<int> winningArr)
         {
-            
+            for (int i = 0; i < userArr.Length; i++)
+            {
+                for (int j = 0; j < resultArr.Length; j++)
+                {
+                    if (userArr[i] == resultArr[j])
+                    {
+                        winningArr.Add(userArr[i]);
+                    }
+                }
+            }
+        }
+        public void DisplayWinningResults(List<int> arr)
+        {
             CalculateResults(userArray, resultArray, winningArray);
-            Console.WriteLine("You matched: " + winningArray.Count + " numbers:");
+            Console.WriteLine("You matched: " + arr.Count + " numbers:");
 
-
-            foreach (int item in winningArray)
+            foreach (int item in arr)
             {
                 Console.Write(item + "\t");
             }
-
         }
 
         public void WinningMessage()
@@ -123,41 +155,12 @@ namespace KLotSingleClass
             }
         }
 
-        public bool IsDupliate(int[] arr, int input)
-        {
-            bool status = false;
-            if (arr.Contains(input))
-            {
-                Console.WriteLine("You have already chosen number " + input);
-                status = true;
-            }
-            return status;
-        }
+        
 
-        public bool IsNotVaildNumber(int input)
-        {
-            bool status = false;
-            if (input < 1 || input > 49)
-            {
-                Console.Write("\nPlease picked a number between 1 and 49");
-                status = true;
-            }
-            return status;
-        }
+        
 
-        public void CalculateResults(int[] user, int[] random, List<int> win)
-        {
-            for (int i = 0; i < user.Length; i++)
-            {
-                for (int j = 0; j < random.Length; j++)
-                {
-                    if (user[i] == random[j])
-                    {
-                        //win[i] = user[i];
-                        win.Add(user[i]);
-                    }
-                }
-            }
-        }
+       
+
+
     }
 }
