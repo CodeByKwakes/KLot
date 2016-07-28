@@ -8,51 +8,40 @@ namespace KLotSingleClass
 {
     class Program
     {
-        
-        int[] userArray = new int[6];
-        int[] resultArray = new int[6];
-        List<int> winningArray = new List<int>();
+        int[] userArray;
+        int[] resultArray;
+        List<int> winningArray;
         int numberInput;
 
         static void Main(string[] args)
         {
-            bool playGame = true;
-            while (playGame)
+            Program kLot = new Program();
+            do
             {
-                Program kLot = new Program();
-                Console.WriteLine("Welcome to K-Lot \nPress Return to play");
-                Console.ReadLine();
+                kLot.PlayGame();
                 kLot.InputLotteryNumbers(kLot.userArray);
                 Console.WriteLine("\n\n");
                 kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
                 kLot.GenerateRandomNumbers(kLot.resultArray);
-                kLot.ShowNumbers(kLot.resultArray, "Tonights winning numbers are : \n");
+                kLot.ShowNumbers(kLot.resultArray, "\nTonights winning numbers are : \n");
                 kLot.DisplayWinningResults(kLot.winningArray);
-                kLot.WinningMessage();
-
-                Console.WriteLine();
-                Console.WriteLine("Would you like to play again. \nPress y for Yes \nOr any key to exit the game \n");
-                ConsoleKeyInfo info = Console.ReadKey();
-
-                if (info.KeyChar == 'y')
-                {
-                    Console.Clear();
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("OK. Goodbye and have a great day \nPress Return to Exit");
-                    playGame = false;
-                    Console.ReadLine();
-                }
-            }
+                kLot.WinningMessage(kLot.winningArray);
+            } while (kLot.WouldYouLikeToRestart());
+            kLot.Exit();
         }
-            
 
-
+        public void PlayGame()
+        {
+            userArray = new int[6];
+            resultArray = new int[6];
+            winningArray = new List<int>();
+            Console.Clear();
+            Console.WriteLine("Welcome to K-Lot \nPress Return to play");
+            Console.ReadLine();
+        }
         public void InputLotteryNumbers(int[] arr)
         {
-            
+
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
@@ -73,7 +62,7 @@ namespace KLotSingleClass
         public bool IsValidationFailed()
         {
             bool status = false;
-            
+
             if (IsDuplicate(userArray, numberInput) || IsNotVaildNumber(numberInput))
             {
                 status = true;
@@ -174,32 +163,52 @@ namespace KLotSingleClass
             }
         }
 
-        public void WinningMessage()
+        public void WinningMessage(List<int> arr)
         {
-            switch (winningArray.Count)
+            switch (arr.Count)
             {
                 case 0:
                 case 1:
                 case 2:
-                    Console.WriteLine("You Lose!!! ");
+                    Console.WriteLine("\nYou Lose!!! ");
                     break;
                 case 3:
-                    Console.WriteLine("You Win £10!!! ");
+                    Console.WriteLine("\nYou Win £10!!! ");
                     break;
                 case 4:
-                    Console.WriteLine("You Win £1000!!! ");
+                    Console.WriteLine("\nYou Win £1000!!! ");
                     break;
                 case 5:
-                    Console.WriteLine("You Win £20,000!!! ");
+                    Console.WriteLine("\nYou Win £20,000!!! ");
                     break;
                 case 6:
-                    Console.WriteLine("You Win £100,000!!! ");
+                    Console.WriteLine("\nYou Win £100,000!!! ");
                     break;
                 default:
-                    Console.WriteLine("Unknown value");
+                    Console.WriteLine("\nUnknown value");
                     break;
             }
         }
 
+        public bool WouldYouLikeToRestart()
+        {
+            bool playGame = false;
+            Console.WriteLine("\nWould you like to play again. \nPress y for Yes \nOr any key to exit the game \n");
+            ConsoleKeyInfo input = Console.ReadKey();
+
+            if (input.KeyChar == 'y')
+            {
+                playGame = true;
+
+            }
+            return playGame;
+        }
+
+        public void Exit()
+        {
+            Console.Clear();
+            Console.WriteLine("OK. Goodbye and have a great day \nPress Return to Exit");
+            Console.ReadLine();
+        }
     }
 }
