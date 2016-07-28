@@ -6,11 +6,25 @@ using System.Threading.Tasks;
 
 namespace KLotVersion3
 {
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            EnterUserNumbers kLot = new EnterUserNumbers();
+            kLot.InputLotteryNumbers();
+            Console.WriteLine("\n\n");
+            kLot.ShowUserNumbers();
+            kLot.GenerateRandomNumbers();
+            kLot.DisplayWinningResults();
+            Console.ReadLine();
+        }
+    }
+
     class EnterUserNumbers
     {
         int[] userArray = new int[6];
         int[] resultArray = new int[6];
-        int[] winningArray = new int[6];
+        List<int> winningArray = new List<int>();
 
         public void InputLotteryNumbers()
         {
@@ -19,15 +33,15 @@ namespace KLotVersion3
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
                 int numberInput = int.Parse(Console.ReadLine());
-               
+
                 if (check.IsDupliate(userArray, numberInput) || check.IsNotVaildNumber(numberInput))
                 {
                     i--;
-                }                    
+                }
                 else
                 {
                     userArray[i] = numberInput;
-                }               
+                }
             }
         }
 
@@ -71,36 +85,19 @@ namespace KLotVersion3
         {
             MatchBothArrays result = new MatchBothArrays();
             result.CalculateResults(userArray, resultArray, winningArray);
-            Console.WriteLine("You matched: " + winningArray.Count() + " count method");
-          
+            Console.WriteLine("You matched: " + winningArray.Count);
+
 
             foreach (int item in winningArray)
             {
                 Console.Write(item + "\t");
             }
 
-            Console.WriteLine("You matched: " + winningArray.Length + " length method");
-            for (int i = 0; i < winningArray.Count(); i++)
-            {
-                Console.Write("{0}\t", winningArray[i]);
-            }
-        }
-    }
-
-    class MatchBothArrays
-    {
-        public void CalculateResults(int[] user, int[] random, int[] win)
-        {
-            for (int i = 0; i < user.Length; i++)
-            {
-                for (int j = 0; j < random.Length; j++)
-                {
-                    if (user[i] == random[j])
-                    {
-                        win[i] = user[i];
-                    }
-                }
-            }
+            //Console.WriteLine("You matched: " + winningArray.Length + " length method");
+            //for (int i = 0; i < winningArray.Count(); i++)
+            //{
+            //    Console.Write("{0}\t", winningArray[i]);
+            //}
         }
     }
 
@@ -120,7 +117,7 @@ namespace KLotVersion3
         //    }
         //    return status;
         //}
-        
+
         public bool IsDupliate(int[] arr, int input)
         {
             bool status = false;
@@ -144,18 +141,22 @@ namespace KLotVersion3
         }
     }
 
-
-    class Program
+    class MatchBothArrays
     {
-        static void Main(string[] args)
+        public void CalculateResults(int[] user, int[] random, List<int> win)
         {
-            EnterUserNumbers kLot = new EnterUserNumbers();
-            kLot.InputLotteryNumbers();
-            Console.WriteLine("\n\n");
-            kLot.ShowUserNumbers();
-            kLot.GenerateRandomNumbers();
-            kLot.DisplayWinningResults();
-            Console.ReadLine();
+            for (int i = 0; i < user.Length; i++)
+            {
+                for (int j = 0; j < random.Length; j++)
+                {
+                    if (user[i] == random[j])
+                    {
+                        //win[i] = user[i];
+                        win.Add(user[i]);
+                    }
+                }
+            }
         }
     }
+
 }
