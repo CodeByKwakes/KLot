@@ -11,6 +11,7 @@ namespace KLotSingleClass
         int[] userArray;
         int[] resultArray;
         List<int> winningArray;
+        //string value;
         int numberInput;
 
         static void Main(string[] args)
@@ -39,14 +40,20 @@ namespace KLotSingleClass
             Console.ReadLine();
         }
         public void InputLotteryNumbers(int[] arr)
-        {
-
+        {       
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
-                numberInput = int.Parse(Console.ReadLine());
-
-                arr[i] = IsValidationFailed() ? i-- : numberInput;
+                try
+                {
+                    numberInput = int.Parse(Console.ReadLine());
+                    arr[i] = IsValidationFailed() ? i-- : numberInput;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    i--;            
+                }
             }
             Console.WriteLine("\n\n");
         }
@@ -61,19 +68,6 @@ namespace KLotSingleClass
             }
             return status;
         }
-
-        //public bool IsWrongInput(int input)
-        //{
-
-        //    bool status = false;
-
-        //    if ()
-        //    {
-        //        Console.WriteLine("\nThis is not vaild. Could you please enter a numeric value\n");
-        //        status = true;
-        //    }
-        //    return status;
-        //}
 
 
         public bool IsNotValidNumber(int input)
