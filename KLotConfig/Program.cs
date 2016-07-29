@@ -23,33 +23,43 @@ namespace KLotConfig
             {
                 kLot.PlayGame();
                 kLot.GameSetUp();
-                kLot.InitialiseGame();
                 kLot.InputLotteryNumbers(kLot.userArray);
                 kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
                 kLot.GenerateRandomNumbers(kLot.resultArray);
                 kLot.ShowNumbers(kLot.resultArray, "\nTonights winning numbers are : \n");
                 kLot.DisplayWinningResults(kLot.winningArray);
-                //kLot.WinningMessage(kLot.winningArray);
+                kLot.WinningMessage(kLot.winningArray);
             } while (kLot.WouldYouLikeToRestart());
             kLot.Exit();
         }
-
+       
         public void PlayGame()
         {
-
             Console.Clear();
             Console.WriteLine("Welcome to K-Lot \nPress Return to play");
             Console.ReadLine();
         }
+        
+        // TODO a funtion for inputing intgers
+        //public int ConsoleInput(int input)
+        //{
+        //    input = int.Parse(Console.ReadLine());
+        //    return input;
+        //}
 
         public void GameSetUp()
         {          
-            Console.WriteLine("\nPlease enter the amount of lottey numbers you want to choose");
+            Console.WriteLine("\nPlease enter the amount of lottery numbers you want to choose");
             setArraySize = int.Parse(Console.ReadLine());
-            Console.WriteLine("\nPlease enter the min range");
+            Console.WriteLine("\nPlease enter the min number range");
             setMinValue = int.Parse(Console.ReadLine());
-            Console.WriteLine("\nPlease enter the max range");
+            Console.WriteLine("\nPlease enter the max number range");
             setMaxValue = int.Parse(Console.ReadLine());
+            InitialiseGame();
+            Console.WriteLine("\nYou have set the following: \nAmount of Lottery Number: " + setArraySize + "\nMin number range: " + setMinValue + "\nMax number range: " + setMaxValue);
+            Console.WriteLine("\nPress Return to play");
+            Console.ReadLine();
+            Console.Clear();
         }
 
         public void InitialiseGame()
@@ -152,7 +162,7 @@ namespace KLotConfig
         public void DisplayWinningResults(List<int> arr)
         {
             CalculateResults(userArray, resultArray, winningArray);
-            Console.WriteLine("\nYou matched: " + arr.Count + " numbers:");
+            Console.WriteLine("\nYou matched: " + arr.Count + " (" + GetPercentage((double)arr.Count / userArray.Length) + ") numbers:");
 
             foreach (int item in arr)
             {
@@ -160,31 +170,42 @@ namespace KLotConfig
             }
         }
 
+        public string GetPercentage(double ratio)
+        {
+            return ratio.ToString("0%");
+        }
+
+        public double Percentage(int value, int total)
+        {
+            double percent = (double)value / total * 100;
+            return Math.Ceiling(percent);
+        }
+
         public void WinningMessage(List<int> arr)
         {
-            switch (arr.Count)
+            double num = Percentage(winningArray.Count, userArray.Length);
+
+            if ( num == 0 || num < 33)
             {
-                case 0:
-                case 1:
-                case 2:
-                    Console.WriteLine("\nYou Lose!!! ");
-                    break;
-                case 3:
-                    Console.WriteLine("\nYou Win £10!!! ");
-                    break;
-                case 4:
-                    Console.WriteLine("\nYou Win £1000!!! ");
-                    break;
-                case 5:
-                    Console.WriteLine("\nYou Win £20,000!!! ");
-                    break;
-                case 6:
-                    Console.WriteLine("\nYou Win £100,000!!! ");
-                    break;
-                default:
-                    Console.WriteLine("\nUnknown value");
-                    break;
+                Console.WriteLine("\nYou Lose!!! ");
             }
+            else if (num > 34 && num < 50)
+            {
+                Console.WriteLine("\nYou Win £10!!! ");
+            }
+            else if (num > 51 && num < 67)
+            {
+                Console.WriteLine("\nYou Win £1000!!! ");
+            }
+            else if (num > 68 && num < 83)
+            {
+                Console.WriteLine("\nYou Win £20,000!!! ");
+            }
+            else
+            {
+                Console.WriteLine("\nYou Win £100,000!!! ");
+            }
+
         }
 
         public bool WouldYouLikeToRestart()
