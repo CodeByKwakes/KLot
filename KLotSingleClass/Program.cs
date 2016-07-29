@@ -20,7 +20,6 @@ namespace KLotSingleClass
             {
                 kLot.PlayGame();
                 kLot.InputLotteryNumbers(kLot.userArray);
-                Console.WriteLine("\n\n");
                 kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
                 kLot.GenerateRandomNumbers(kLot.resultArray);
                 kLot.ShowNumbers(kLot.resultArray, "\nTonights winning numbers are : \n");
@@ -57,13 +56,14 @@ namespace KLotSingleClass
                     arr[i] = numberInput;
                 }
             }
+            Console.WriteLine("\n\n");
         }
 
         public bool IsValidationFailed()
         {
             bool status = false;
 
-            if (IsDuplicate(userArray, numberInput) || IsNotVaildNumber(numberInput))
+            if (IsNotValidNumber(numberInput) || IsDuplicate(userArray, numberInput))
             {
                 status = true;
             }
@@ -97,12 +97,12 @@ namespace KLotSingleClass
             return status;
         }
 
-        public bool IsNotVaildNumber(int input)
+        public bool IsNotValidNumber(int input)
         {
             bool status = false;
             if (input < 1 || input > 49)
             {
-                Console.Write("\nPlease picked a number between 1 and 49");
+                Console.Write("\nPlease pick a number between 1 and 49");
                 status = true;
             }
             return status;
