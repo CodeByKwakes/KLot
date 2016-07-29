@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KLotSingleClass
+namespace KLotConfig
 {
     class Program
     {
+        int setArraySize;
+        int setMinValue;
+        int setMaxValue;
         int[] userArray;
         int[] resultArray;
         List<int> winningArray;
@@ -19,28 +22,50 @@ namespace KLotSingleClass
             do
             {
                 kLot.PlayGame();
+                kLot.GameSetUp();
+                kLot.InitialiseGame();
                 kLot.InputLotteryNumbers(kLot.userArray);
                 kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
-                kLot.GenerateRandomNumbers(kLot.resultArray);
-                kLot.ShowNumbers(kLot.resultArray, "\nTonights winning numbers are : \n");
-                kLot.DisplayWinningResults(kLot.winningArray);
-                kLot.WinningMessage(kLot.winningArray);
+                //kLot.GenerateRandomNumbers(kLot.resultArray);
+                //kLot.ShowNumbers(kLot.resultArray, "\nTonights winning numbers are : \n");
+                //kLot.DisplayWinningResults(kLot.winningArray);
+                //kLot.WinningMessage(kLot.winningArray);
             } while (kLot.WouldYouLikeToRestart());
             kLot.Exit();
         }
 
         public void PlayGame()
         {
-            userArray = new int[6];
-            resultArray = new int[6];
-            winningArray = new List<int>();
+
             Console.Clear();
             Console.WriteLine("Welcome to K-Lot \nPress Return to play");
             Console.ReadLine();
         }
 
+        public void GameSetUp()
+        {
+           
+           
+            
+            Console.WriteLine("\nPlease enter the amount of lottey numbers you want to choose");
+            setArraySize = int.Parse(Console.ReadLine());
+            Console.WriteLine("\nPlease enter the min range");
+            setMinValue = int.Parse(Console.ReadLine());
+            Console.WriteLine("\nPlease enter the max range");
+            setMaxValue = int.Parse(Console.ReadLine());
+           
+        }
+
+        public void InitialiseGame()
+        {
+            userArray = new int[setArraySize];
+            resultArray = new int[setArraySize];
+            winningArray = new List<int>();
+
+        }
+
         public void InputLotteryNumbers(int[] arr)
-        {       
+        {
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
@@ -52,7 +77,7 @@ namespace KLotSingleClass
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    i--;            
+                    i--;
                 }
             }
             Console.WriteLine("\n\n");
