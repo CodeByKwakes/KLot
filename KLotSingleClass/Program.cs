@@ -44,17 +44,9 @@ namespace KLotSingleClass
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
-
                 numberInput = int.Parse(Console.ReadLine());
 
-                if (IsValidationFailed())
-                {
-                    i--;
-                }
-                else
-                {
-                    arr[i] = numberInput;
-                }
+                arr[i] = IsValidationFailed() ? i-- : numberInput;
             }
             Console.WriteLine("\n\n");
         }
@@ -70,39 +62,37 @@ namespace KLotSingleClass
             return status;
         }
 
-        //public bool IsWrongInput()
+        //public bool IsWrongInput(int input)
         //{
-        //    bool status = false;
-        //    try
-        //    {
-        //        numberInput = int.Parse(Console.ReadLine());
-        //    }
-        //    catch (Exception ex)
-        //    {
 
-        //        Console.WriteLine($"This is not vaild. Could you please enter a numeric value - {ex.Message}");
+        //    bool status = false;
+
+        //    if ()
+        //    {
+        //        Console.WriteLine("\nThis is not vaild. Could you please enter a numeric value\n");
         //        status = true;
         //    }
         //    return status;
         //}
 
-        public bool IsDuplicate(int[] arr, int input)
-        {
-            bool status = false;
-            if (arr.Contains(input))
-            {
-                Console.WriteLine("You have already chosen number " + input);
-                status = true;
-            }
-            return status;
-        }
 
         public bool IsNotValidNumber(int input)
         {
             bool status = false;
             if (input < 1 || input > 49)
             {
-                Console.Write("\nPlease pick a number between 1 and 49");
+                Console.Write("\nPlease pick a number between 1 and 49\n");
+                status = true;
+            }
+            return status;
+        }
+
+        public bool IsDuplicate(int[] arr, int input)
+        {
+            bool status = false;
+            if (arr.Contains(input))
+            {
+                Console.WriteLine("\nYou have already chosen number " + input);
                 status = true;
             }
             return status;
@@ -126,14 +116,8 @@ namespace KLotSingleClass
             for (int x = 0; x < arr.Length; x++)
             {
                 resultArrayNumber = randomNumbers.Next(0, 50);
-                if (arr.Contains(resultArrayNumber))
-                {
-                    x--;
-                }
-                else
-                {
-                    arr[x] = resultArrayNumber;
-                }
+
+                arr[x] = arr.Contains(resultArrayNumber) ? x-- : resultArrayNumber;
             }
             Array.Sort(arr);
         }
@@ -155,7 +139,7 @@ namespace KLotSingleClass
         public void DisplayWinningResults(List<int> arr)
         {
             CalculateResults(userArray, resultArray, winningArray);
-            Console.WriteLine("You matched: " + arr.Count + " numbers:");
+            Console.WriteLine("\nYou matched: " + arr.Count + " numbers:");
 
             foreach (int item in arr)
             {
