@@ -26,9 +26,9 @@ namespace KLotConfig
                 kLot.InitialiseGame();
                 kLot.InputLotteryNumbers(kLot.userArray);
                 kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
-                //kLot.GenerateRandomNumbers(kLot.resultArray);
-                //kLot.ShowNumbers(kLot.resultArray, "\nTonights winning numbers are : \n");
-                //kLot.DisplayWinningResults(kLot.winningArray);
+                kLot.GenerateRandomNumbers(kLot.resultArray);
+                kLot.ShowNumbers(kLot.resultArray, "\nTonights winning numbers are : \n");
+                kLot.DisplayWinningResults(kLot.winningArray);
                 //kLot.WinningMessage(kLot.winningArray);
             } while (kLot.WouldYouLikeToRestart());
             kLot.Exit();
@@ -43,17 +43,13 @@ namespace KLotConfig
         }
 
         public void GameSetUp()
-        {
-           
-           
-            
+        {          
             Console.WriteLine("\nPlease enter the amount of lottey numbers you want to choose");
             setArraySize = int.Parse(Console.ReadLine());
             Console.WriteLine("\nPlease enter the min range");
             setMinValue = int.Parse(Console.ReadLine());
             Console.WriteLine("\nPlease enter the max range");
             setMaxValue = int.Parse(Console.ReadLine());
-           
         }
 
         public void InitialiseGame()
@@ -61,7 +57,6 @@ namespace KLotConfig
             userArray = new int[setArraySize];
             resultArray = new int[setArraySize];
             winningArray = new List<int>();
-
         }
 
         public void InputLotteryNumbers(int[] arr)
@@ -80,6 +75,7 @@ namespace KLotConfig
                     i--;
                 }
             }
+            Array.Sort(arr);
             Console.WriteLine("\n\n");
         }
 
@@ -97,9 +93,9 @@ namespace KLotConfig
         public bool IsNotValidNumber(int input)
         {
             bool status = false;
-            if (input < 1 || input > 49)
+            if (input < setMinValue || input > setMaxValue)
             {
-                Console.Write("\nPlease pick a number between 1 and 49\n");
+                Console.Write("\nPlease pick a number between " + setMinValue + " and " + setMaxValue + "\n");
                 status = true;
             }
             return status;
@@ -133,8 +129,7 @@ namespace KLotConfig
 
             for (int x = 0; x < arr.Length; x++)
             {
-                resultArrayNumber = randomNumbers.Next(0, 50);
-
+                resultArrayNumber = randomNumbers.Next(setMinValue, setMaxValue);
                 arr[x] = arr.Contains(resultArrayNumber) ? x-- : resultArrayNumber;
             }
             Array.Sort(arr);
