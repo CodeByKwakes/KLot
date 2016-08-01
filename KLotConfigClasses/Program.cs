@@ -4,70 +4,90 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KLotConfig
+namespace KLotConfigClasses
 {
     class Program
     {
-        int setArraySize;
-        int setMinValue;
-        int setMaxValue;
-        int[] userArray;
-        int[] resultArray;
-        List<int> winningArray;
-        int numberInput;
-        
         static void Main(string[] args)
         {
-            Program kLot = new Program();
+            GameSetUp game = new GameSetUp();
+            LotteryData lotto = new LotteryData();
+            Results result = new Results();
+            ResetGame reset = new ResetGame();
             do
             {
-                kLot.PlayGame();
-                kLot.GameSetUp();
-                kLot.InputLotteryNumbers(kLot.userArray);
-                kLot.ShowNumbers(kLot.userArray, "\nThe numbers you entered were: \n");
-                kLot.GenerateRandomNumbers(kLot.resultArray);
-                kLot.ShowNumbers(kLot.resultArray, "\nTonights winning numbers are : \n");
-                kLot.DisplayWinningResults(kLot.winningArray);
-                kLot.WinningMessage(kLot.winningArray);
-            } while (kLot.WouldYouLikeToRestart());
-            kLot.Exit();
+                game.GameIntro();
+                lotto.LotteryGamePlay();
+                result.GameResults();
+            } while (reset.WouldYouLikeToRestart());
+            reset.Exit();
         }
-       
-        public void PlayGame()
+    }
+    public static class GlobalVar
+    {
+        public static int setArraySize; // set the size of the amount of loottery numbers to use
+        public static int setMinValue; // set the min number range of lottery numbers
+        public static int setMaxValue; // set the max number range of lottery numbers
+        public static int[] userArray;
+        public static int[] resultArray;
+        public static List<int> winningArray;
+        public static int numberInput;
+    }
+    public class GameSetUp
+    {
+        public void GameIntro()
+        {
+            GameWelcome();
+            GetUserDetails();
+            SetUserDetails();
+            ConfirmUserDetails();
+        }
+
+        public void GameWelcome()
         {
             Console.Clear();
             Console.WriteLine("Welcome to K-Lot \nPress Return to play");
             Console.ReadLine();
         }
-        
-        // TODO a funtion for inputing intgers
-        //public int ConsoleInput(int input)
-        //{
-        //    input = int.Parse(Console.ReadLine());
-        //    return input;
-        //}
-        public void GameSetUp()
-        {          
+
+        public void GetUserDetails()
+        {
             Console.WriteLine("\nPlease enter the amount of lottery numbers you want to choose");
-            setArraySize = int.Parse(Console.ReadLine());
+            GlobalVar.setArraySize = int.Parse(Console.ReadLine());
             Console.WriteLine("\nPlease enter the min number range");
-            setMinValue = int.Parse(Console.ReadLine());
+            GlobalVar.setMinValue = int.Parse(Console.ReadLine());
             Console.WriteLine("\nPlease enter the max number range");
-            setMaxValue = int.Parse(Console.ReadLine());
-            InitialiseGame();
-            Console.WriteLine("\nYou have set the following: \nAmount of Lottery Number: " + setArraySize + "\nMin number range: " + setMinValue + "\nMax number range: " + setMaxValue);
+            GlobalVar.setMaxValue = int.Parse(Console.ReadLine());
+        }
+
+        public void SetUserDetails()
+        {
+            GlobalVar.userArray = new int[GlobalVar.setArraySize];
+            GlobalVar.resultArray = new int[GlobalVar.setArraySize];
+            GlobalVar.winningArray = new List<int>();
+        }
+
+        public void ConfirmUserDetails()
+        {
+            Console.WriteLine("\nYou have set the following: \nAmount of Lottery Number: " + GlobalVar.setArraySize + "\nMin number range: " + GlobalVar.setMinValue + "\nMax number range: " + GlobalVar.setMaxValue);
             Console.WriteLine("\nPress Return to play");
             Console.ReadLine();
-            Console.Clear();
         }
 
-        public void InitialiseGame()
+    }
+    public class LotteryData
+    {
+
+        Validation valid = new Validation();
+
+        public void LotteryGamePlay()
         {
-            userArray = new int[setArraySize];
-            resultArray = new int[setArraySize];
-            winningArray = new List<int>();
-        }
+            InputLotteryNumbers(GlobalVar.userArray);
+            ShowNumbers(GlobalVar.userArray, "\nThe numbers you entered were: \n");
+            GenerateRandomNumbers(GlobalVar.resultArray);
+            ShowNumbers(GlobalVar.resultArray, "\nTonights winning numbers are : \n");
 
+        }
         public void InputLotteryNumbers(int[] arr)
         {
             for (int i = 0; i < arr.Length; i++)
@@ -75,8 +95,8 @@ namespace KLotConfig
                 Console.Write("\nPlease enter lottery number " + (i + 1) + " : ");
                 try
                 {
-                    numberInput = int.Parse(Console.ReadLine());
-                    arr[i] = IsValidationFailed() ? i-- : numberInput;
+                    GlobalVar.numberInput = int.Parse(Console.ReadLine());
+                    arr[i] = valid.IsValidationFailed() ? i-- : GlobalVar.numberInput;
                 }
                 catch (Exception ex)
                 {
@@ -88,11 +108,36 @@ namespace KLotConfig
             Console.WriteLine("\n\n");
         }
 
+        public void ShowNumbers(int[] arr, string message)
+        {
+            Console.Write(message);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write("{0}\t", arr[i]);
+            }
+            Console.WriteLine();
+        }
+
+        public void GenerateRandomNumbers(int[] arr)
+        {
+            Random randomNumbers = new Random();
+            int resultArrayNumber;
+
+            for (int x = 0; x < arr.Length; x++)
+            {
+                resultArrayNumber = randomNumbers.Next(GlobalVar.setMinValue, GlobalVar.setMaxValue);
+                arr[x] = arr.Contains(resultArrayNumber) ? x-- : resultArrayNumber;
+            }
+            Array.Sort(arr);
+        }
+    }
+    public class Validation
+    {
         public bool IsValidationFailed()
         {
             bool status = false;
 
-            if (IsNotValidNumber(numberInput, setMinValue, setMaxValue) || IsDuplicate(userArray, numberInput))
+            if (IsNotValidNumber(GlobalVar.numberInput, GlobalVar.setMinValue, GlobalVar.setMaxValue) || IsDuplicate(GlobalVar.userArray, GlobalVar.numberInput))
             {
                 status = true;
             }
@@ -120,30 +165,15 @@ namespace KLotConfig
             }
             return status;
         }
-
-        public void ShowNumbers(int[] arr, string message)
+    }
+    public class Results
+    {
+        public void GameResults()
         {
-            Console.Write(message);
-            for (int i = 0; i < arr.Length; i++)
-            {
-                Console.Write("{0}\t", arr[i]);
-            }
-            Console.WriteLine();
+            CalculateResults(GlobalVar.userArray, GlobalVar.resultArray, GlobalVar.winningArray);
+            DisplayWinningResults(GlobalVar.winningArray);
+            WinningMessage(GlobalVar.winningArray);
         }
-
-        public void GenerateRandomNumbers(int[] arr)
-        {
-            Random randomNumbers = new Random();
-            int resultArrayNumber;
-
-            for (int x = 0; x < arr.Length; x++)
-            {
-                resultArrayNumber = randomNumbers.Next(setMinValue, setMaxValue);
-                arr[x] = arr.Contains(resultArrayNumber) ? x-- : resultArrayNumber;
-            }
-            Array.Sort(arr);
-        }
-
         public void CalculateResults(int[] userArr, int[] resultArr, List<int> winningArr)
         {
             for (int i = 0; i < userArr.Length; i++)
@@ -160,8 +190,8 @@ namespace KLotConfig
 
         public void DisplayWinningResults(List<int> arr)
         {
-            CalculateResults(userArray, resultArray, winningArray);
-            Console.WriteLine("\nYou matched: " + arr.Count + " (" + GetPercentage((double)arr.Count / userArray.Length) + ") numbers:");
+            string percent = GetPercentage((double)arr.Count / GlobalVar.userArray.Length);
+            Console.WriteLine("\nYou matched: " + arr.Count + " (" + percent + ") numbers:");
 
             foreach (int item in arr)
             {
@@ -182,9 +212,9 @@ namespace KLotConfig
 
         public void WinningMessage(List<int> arr)
         {
-            double num = Percentage(winningArray.Count, userArray.Length);
+            double num = Percentage(GlobalVar.winningArray.Count, GlobalVar.userArray.Length);
 
-            if ( num == 0 || num < 33)
+            if (num == 0 || num < 33)
             {
                 Console.WriteLine("\nYou Lose!!! ");
             }
@@ -204,9 +234,10 @@ namespace KLotConfig
             {
                 Console.WriteLine("\nYou Win £100,000!!! ");
             }
-
         }
-
+    }
+    public class ResetGame
+    {
         public bool WouldYouLikeToRestart()
         {
             bool playGame = false;
@@ -228,4 +259,5 @@ namespace KLotConfig
             Console.ReadLine();
         }
     }
+ 
 }
