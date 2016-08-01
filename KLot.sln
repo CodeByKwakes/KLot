@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotConfig", "KLotConfig\KL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotConfigClasses", "KLotConfigClasses\KLotConfigClasses.csproj", "{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotScrapper", "KLotScrapper\KLotScrapper.csproj", "{98089233-025C-45FE-972E-C218224A7157}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98089233-025C-45FE-972E-C218224A7157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98089233-025C-45FE-972E-C218224A7157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98089233-025C-45FE-972E-C218224A7157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98089233-025C-45FE-972E-C218224A7157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KLotConfigClasses
+namespace KLotScrapper
 {
     class Program
     {
@@ -26,9 +26,9 @@ namespace KLotConfigClasses
 
     public static class GlobalVar
     {
-        public static int setArraySize; // set the size of the amount of loottery numbers to use
-        public static int setMinValue; // set the min number range of lottery numbers
-        public static int setMaxValue; // set the max number range of lottery numbers
+        public static int setArraySize;
+        public static int setMinValue;
+        public static int setMaxValue;
         public static int[] userArray;
         public static int[] resultArray;
         public static List<int> winningArray;
@@ -40,7 +40,7 @@ namespace KLotConfigClasses
         public void GameIntro()
         {
             GameWelcome();
-            GetUserDetails();
+            //GetUserDetails();
             SetUserDetails();
             ConfirmUserDetails();
         }
@@ -64,14 +64,14 @@ namespace KLotConfigClasses
 
         public void SetUserDetails()
         {
-            GlobalVar.userArray = new int[GlobalVar.setArraySize];
-            GlobalVar.resultArray = new int[GlobalVar.setArraySize];
+            GlobalVar.userArray = new int[6];
+            GlobalVar.resultArray = new int[6];
             GlobalVar.winningArray = new List<int>();
         }
 
         public void ConfirmUserDetails()
         {
-            Console.WriteLine("\nYou have set the following: \nAmount of Lottery Number: " + GlobalVar.setArraySize + "\nMin number range: " + GlobalVar.setMinValue + "\nMax number range: " + GlobalVar.setMaxValue);
+            //Console.WriteLine("\nYou have set the following: \nAmount of Lottery Number: " + GlobalVar.setArraySize + "\nMin number range: " + GlobalVar.setMinValue + "\nMax number range: " + GlobalVar.setMaxValue);
             Console.WriteLine("\nPress Return to play");
             Console.ReadLine();
         }
@@ -133,7 +133,7 @@ namespace KLotConfigClasses
 
             for (int x = 0; x < arr.Length; x++)
             {
-                resultArrayNumber = randomNumbers.Next(GlobalVar.setMinValue, GlobalVar.setMaxValue);
+                resultArrayNumber = randomNumbers.Next(1, 59);
                 arr[x] = arr.Contains(resultArrayNumber) ? x-- : resultArrayNumber;
             }
             Array.Sort(arr);
@@ -146,7 +146,7 @@ namespace KLotConfigClasses
         {
             bool status = false;
 
-            if (IsNotValidNumber(GlobalVar.numberInput, GlobalVar.setMinValue, GlobalVar.setMaxValue) || IsDuplicate(GlobalVar.userArray, GlobalVar.numberInput))
+            if (IsNotValidNumber(GlobalVar.numberInput, 1, 59) || IsDuplicate(GlobalVar.userArray, GlobalVar.numberInput))
             {
                 status = true;
             }
@@ -272,5 +272,4 @@ namespace KLotConfigClasses
             Console.ReadLine();
         }
     }
- 
 }
