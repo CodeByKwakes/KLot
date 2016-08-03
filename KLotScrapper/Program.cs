@@ -72,7 +72,6 @@ namespace KLotScrapper
 
         public void ConfirmUserDetails()
         {
-            //Console.WriteLine("\nYou have set the following: \nAmount of Lottery Number: " + GlobalVar.setArraySize + "\nMin number range: " + GlobalVar.setMinValue + "\nMax number range: " + GlobalVar.setMaxValue);
             Console.WriteLine("\nPress Return to play");
             Console.ReadLine();
         }
@@ -128,18 +127,6 @@ namespace KLotScrapper
             Console.WriteLine();
         }
 
-        //public void GenerateRandomNumbers(int[] arr)
-        //{
-        //    Random randomNumbers = new Random();
-        //    int resultArrayNumber;
-
-        //    for (int x = 0; x < arr.Length; x++)
-        //    {
-        //        resultArrayNumber = randomNumbers.Next(1, 59);
-        //        arr[x] = arr.Contains(resultArrayNumber) ? x-- : resultArrayNumber;
-        //    }
-        //    Array.Sort(arr);
-        //}
     }
 
     public class Validation
@@ -180,7 +167,6 @@ namespace KLotScrapper
 
     public class Scrapper
     {
-
         public void GetLotteryWebNumbers(int[] arr)
         {
             HtmlWeb web = new HtmlWeb();
@@ -193,7 +179,7 @@ namespace KLotScrapper
                 arr[i] = webNumber;
             }
         }
-      
+
     }
 
     public class Results

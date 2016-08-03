@@ -40,12 +40,6 @@ namespace KLotConfig
             Console.ReadLine();
         }
         
-        // TODO a funtion for inputing intgers
-        //public int ConsoleInput(int input)
-        //{
-        //    input = int.Parse(Console.ReadLine());
-        //    return input;
-        //}
         public void GameSetUp()
         {          
             Console.WriteLine("\nPlease enter the amount of lottery numbers you want to choose");
