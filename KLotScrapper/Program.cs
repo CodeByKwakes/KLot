@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
 
 namespace KLotScrapper
@@ -41,9 +39,7 @@ namespace KLotScrapper
         public void GameIntro()
         {
             GameWelcome();
-            //GetUserDetails();
             SetUserDetails();
-            //ConfirmUserDetails();
         }
 
         public void GameWelcome()
@@ -52,17 +48,7 @@ namespace KLotScrapper
             Console.WriteLine("Welcome to K-Lot \nPress Return to play");
             Console.ReadLine();
         }
-
-        //public void GetUserDetails()
-        //{
-        //    Console.WriteLine("\nPlease enter the amount of lottery numbers you want to choose");
-        //    UserInput(out GlobalVar.setArraySize);
-        //    Console.WriteLine("\nPlease enter the min number range");
-        //    UserInput(out GlobalVar.setMinValue);
-        //    Console.WriteLine("\nPlease enter the max number range");
-        //    UserInput(out GlobalVar.setMaxValue);
-        //}
-
+ 
         public void SetUserDetails()
         {
             GlobalVar.userArray = new int[6];
@@ -170,7 +156,7 @@ namespace KLotScrapper
         public void GetLotteryWebNumbers(int[] arr)
         {
             HtmlWeb web = new HtmlWeb();
-            HtmlDocument doc = web.Load("https://www.national-lottery.co.uk/results/lotto/draw-history/draw-details/2150");
+            HtmlDocument doc = web.Load("https://www.national-lottery.co.uk/results/lotto/draw-history/draw-details/2152");
             HtmlNode[] nodes = doc.DocumentNode.SelectNodes("//*[@id='winning_numbers_lotto']/div/div/ol/li[position()<7]").ToArray();
 
             for (int i = 0; i < nodes.Length; i++)
