@@ -15,6 +15,7 @@ namespace KLotTickets
         public int[] userArray;
         public int[] resultArray = new int[6];
         public List<int> winningArray;
+
         public int numberInput;
         public bool status = false;
 
@@ -43,6 +44,7 @@ namespace KLotTickets
             tkts.GenerateRandomNumbers(tkts.resultArray);
             Console.Write("\nTonights winning numbers are : \n");
             tkts.ShowNumbers(tkts.resultArray);
+            tkts.DisplayWinningResults();
             Console.ReadLine();
         }
 
@@ -95,11 +97,25 @@ namespace KLotTickets
                         InputLotteryNumbers();
                         break;
                     case 2:
-                        GenerateRandomNumbers(userArray);
-                        break;                        
-                } 
+                        LuckyDip();
+                        break;
+                }
             }
-            
+
+        }
+
+        public void LuckyDip()
+        {
+            Random randomLuckyDip = new Random();
+            int luckyDipNumber;
+
+            for (int x = 0; x < userArray.Length; x++)
+            {
+                luckyDipNumber = randomLuckyDip.Next(0, 60);
+
+                userArray[x] = userArray.Contains(luckyDipNumber) ? x-- : luckyDipNumber;
+            }
+            Array.Sort(userArray);
         }
 
         public void GenerateRandomNumbers(int[] arr)
@@ -143,7 +159,7 @@ namespace KLotTickets
                     Console.WriteLine(ex.Message);
                     j--;
                 }
-                
+
             }
             Console.WriteLine("\n\n");
         }
@@ -172,7 +188,6 @@ namespace KLotTickets
             }
             return status;
         }
-
 
         public bool IsDuplicate(int[] arr, int input)
         {
@@ -208,6 +223,38 @@ namespace KLotTickets
             Console.WriteLine();
         }
 
+        public void CalculateResults( int[] userArr, int[] resultArr, List<int> winningArr)
+        {
+            
+                for (int i = 0; i < userArr.Length; i++)
+                {
+                    for (int j = 0; j < resultArr.Length; j++)
+                    {
+                        if (userArr[i] == resultArr[j])
+                        {
+                            winningArr.Add(userArr[i]);
+                        }
+                    }
+                }
+  
+        }
+
+        public void DisplayWinningResults()
+        {
+            for (int i = 0; i < ticketNoArray.Length; i++)
+            {
+                winningArray = new List<int>();
+                userArray = ticketNoArray[i];
+                CalculateResults(userArray, resultArray, winningArray);
+                Console.WriteLine($"\nFor Ticket No. {i + 1}  +  You matched: {winningArray.Count} numbers:");
+
+                foreach (int item in winningArray)
+                {
+                    Console.Write(item + "\t");
+                }
+            }
+            
+        }
 
     }
 }
