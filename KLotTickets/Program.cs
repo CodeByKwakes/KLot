@@ -28,6 +28,7 @@ namespace KLotTickets
 
             Console.WriteLine("\nPlease enter the amount of lottery ticket you want to buy");
             tkts.UserInput(out tkts.numberInput);
+
             tkts.IsTicketsNotValid();
 
             Console.WriteLine($"\nYou Entered: {tkts.numberInput} "); // testing
@@ -54,11 +55,12 @@ namespace KLotTickets
             bool status = false;
             if (numberInput > totalTicketAmount)
             {
-                Console.Write($"\nYou don not have enough money to buy {numberInput}\n");
+                Console.Write($"\nYou do not have enough money to buy {numberInput}\n");
                 status = true;
             }
             return status;
         }
+
         public void SetTicketAmount()
         {
             ticketNoArray = new int[numberInput][];
@@ -86,7 +88,6 @@ namespace KLotTickets
                     UserInput(out numberInput);
                     userArray[j] = numberInput;
                 }
-
             }
         }
 
