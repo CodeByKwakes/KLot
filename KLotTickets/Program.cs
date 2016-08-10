@@ -26,15 +26,17 @@ namespace KLotTickets
             tkts.totalTicketAmount = tkts.AmountOfTickets();
             Console.WriteLine($"You can buy {tkts.totalTicketAmount} tickets");
 
-            Console.WriteLine("\nPlease enter the amount of lottery ticket you want to buy");
-            tkts.UserInput(out tkts.numberInput);
-
-            tkts.IsTicketsNotValid();
+            do
+            {
+                Console.WriteLine("\nPlease enter the amount of lottery ticket you want to buy");
+                tkts.UserInput(out tkts.numberInput);
+            } while (tkts.IsTicketsNotValid());
 
             Console.WriteLine($"\nYou Entered: {tkts.numberInput} "); // testing
             tkts.SetTicketAmount();
             tkts.SetLotteyTickets();
-            tkts.EnterTicketNumbers();
+            tkts.UserChoice();
+            //tkts.EnterTicketNumbers();
             tkts.ShowTicketNumbers();
             Console.ReadLine();
         }
@@ -74,6 +76,41 @@ namespace KLotTickets
             }
         }
 
+        public void UserChoice()
+        {
+            for (int i = 0; i < ticketNoArray.Length; i++)
+            {
+                Console.WriteLine($"Ticket No: { i + 1}");
+                Console.Write($"\nPress 1 to choose your own numbers for ticket no. {i + 1} \nOr \nPress 2 for a lucky dip\n");
+                userArray = ticketNoArray[i];
+                UserInput(out numberInput);
+                switch (numberInput)
+                {
+                    case 1:
+                        InputLotteryNumbers();
+                        break;
+                    case 2:
+                        GenerateRandomNumbers(userArray);
+                        break;                        
+                } 
+            }
+            
+        }
+
+        public void GenerateRandomNumbers(int[] arr)
+        {
+            Random randomNumbers = new Random();
+            int resultArrayNumber;
+
+            for (int x = 0; x < arr.Length; x++)
+            {
+                resultArrayNumber = randomNumbers.Next(0, 50);
+
+                arr[x] = arr.Contains(resultArrayNumber) ? x-- : resultArrayNumber;
+            }
+            Array.Sort(arr);
+        }
+
         public void EnterTicketNumbers()
         {
             for (int i = 0; i < ticketNoArray.Length; i++)
@@ -82,12 +119,17 @@ namespace KLotTickets
                 userArray = ticketNoArray[i];
 
                 //Input Number Function
-                for (int j = 0; j < userArray.Length; j++)
-                {
-                    Console.Write("\nPlease enter lottery number " + (j + 1) + " : ");
-                    UserInput(out numberInput);
-                    userArray[j] = numberInput;
-                }
+                InputLotteryNumbers();
+            }
+        }
+
+        public void InputLotteryNumbers()
+        {
+            for (int j = 0; j < userArray.Length; j++)
+            {
+                Console.Write("\nPlease enter lottery number " + (j + 1) + " : ");
+                UserInput(out numberInput);
+                userArray[j] = numberInput;
             }
         }
 
