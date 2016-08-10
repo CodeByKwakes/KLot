@@ -13,6 +13,8 @@ namespace KLotTickets
         public int totalTicketAmount;
         public int[][] ticketNoArray;
         public int[] userArray;
+        public int[] resultArray = new int[6];
+        public List<int> winningArray;
         public int numberInput;
         public bool status = false;
 
@@ -38,6 +40,9 @@ namespace KLotTickets
             tkts.UserChoice();
             //tkts.EnterTicketNumbers();
             tkts.ShowTicketNumbers();
+            tkts.GenerateRandomNumbers(tkts.resultArray);
+            Console.Write("\nTonights winning numbers are : \n");
+            tkts.ShowNumbers(tkts.resultArray);
             Console.ReadLine();
         }
 
@@ -104,34 +109,84 @@ namespace KLotTickets
 
             for (int x = 0; x < arr.Length; x++)
             {
-                resultArrayNumber = randomNumbers.Next(0, 50);
+                resultArrayNumber = randomNumbers.Next(0, 60);
 
                 arr[x] = arr.Contains(resultArrayNumber) ? x-- : resultArrayNumber;
             }
             Array.Sort(arr);
         }
 
-        public void EnterTicketNumbers()
-        {
-            for (int i = 0; i < ticketNoArray.Length; i++)
-            {
-                Console.Write("\nPlease enter the 6 numbers for ticket " + (i + 1) + " : ");
-                userArray = ticketNoArray[i];
+        //public void EnterTicketNumbers()
+        //{
+        //    for (int i = 0; i < ticketNoArray.Length; i++)
+        //    {
+        //        Console.Write("\nPlease enter the 6 numbers for ticket " + (i + 1) + " : ");
+        //        userArray = ticketNoArray[i];
 
-                //Input Number Function
-                InputLotteryNumbers();
-            }
-        }
+        //        //Input Number Function
+        //        InputLotteryNumbers();
+        //    }
+        //}
 
         public void InputLotteryNumbers()
         {
             for (int j = 0; j < userArray.Length; j++)
             {
                 Console.Write("\nPlease enter lottery number " + (j + 1) + " : ");
-                UserInput(out numberInput);
-                userArray[j] = numberInput;
+                try
+                {
+                    UserInput(out numberInput);
+                    userArray[j] = IsValidationFailed() ? j-- : numberInput;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    j--;
+                }
+                
             }
+            Console.WriteLine("\n\n");
         }
+
+
+
+
+        public bool IsValidationFailed()
+        {
+            bool status = false;
+
+            if (IsNotValidNumber(numberInput) || IsDuplicate(userArray, numberInput))
+            {
+                status = true;
+            }
+            return status;
+        }
+
+        public bool IsNotValidNumber(int input)
+        {
+            bool status = false;
+            if (input < 1 || input > 59)
+            {
+                Console.Write("\nPlease pick a number between 1 and 59\n");
+                status = true;
+            }
+            return status;
+        }
+
+
+        public bool IsDuplicate(int[] arr, int input)
+        {
+            bool status = false;
+            if (arr.Contains(input))
+            {
+                Console.WriteLine("\nYou have already chosen number " + input);
+                status = true;
+            }
+            return status;
+        }
+
+
+
 
         public void ShowTicketNumbers()
         {
@@ -139,18 +194,20 @@ namespace KLotTickets
             {
                 Console.Write($"Here are your numbers for Ticket No {i + 1} \n");
                 userArray = ticketNoArray[i];
-                ShowNumbers();
+                ShowNumbers(userArray);
+                Console.WriteLine();
             }
         }
 
-        public void ShowNumbers()
+        public void ShowNumbers(int[] arr)
         {
-            //Console.Write("Here are your Ticket Numbers \n");
-            for (int i = 0; i < userArray.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                Console.Write("{0}\t", userArray[i]);
+                Console.Write("{0}\t", arr[i]);
             }
             Console.WriteLine();
         }
+
+
     }
 }
