@@ -3,18 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLot", "KLot\KLot.csproj", "{BB36074E-44D8-46D7-A0BD-6ACF64D46152}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotVersion2", "SecondVersion\KLotVersion2.csproj", "{62E93859-A0CF-4699-B67C-A272BE77A82E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotVersion3", "KLotVersion3\KLotVersion3.csproj", "{14A11DBE-063B-482F-876C-EA5FA74939DD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotSingleClass", "KLotSingleClass\KLotSingleClass.csproj", "{F9364476-2A9B-4936-A7F3-27171BE8272D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotConfig", "KLotConfig\KLotConfig.csproj", "{A0F8ACAF-EDC1-43C4-B619-40459155C311}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotConfigClasses", "KLotConfigClasses\KLotConfigClasses.csproj", "{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLotScrapper", "KLotScrapper\KLotScrapper.csproj", "{98089233-025C-45FE-972E-C218224A7157}"
 EndProject
 Global
@@ -23,30 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BB36074E-44D8-46D7-A0BD-6ACF64D46152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB36074E-44D8-46D7-A0BD-6ACF64D46152}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB36074E-44D8-46D7-A0BD-6ACF64D46152}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB36074E-44D8-46D7-A0BD-6ACF64D46152}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62E93859-A0CF-4699-B67C-A272BE77A82E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62E93859-A0CF-4699-B67C-A272BE77A82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62E93859-A0CF-4699-B67C-A272BE77A82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62E93859-A0CF-4699-B67C-A272BE77A82E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14A11DBE-063B-482F-876C-EA5FA74939DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14A11DBE-063B-482F-876C-EA5FA74939DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14A11DBE-063B-482F-876C-EA5FA74939DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14A11DBE-063B-482F-876C-EA5FA74939DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9364476-2A9B-4936-A7F3-27171BE8272D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9364476-2A9B-4936-A7F3-27171BE8272D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9364476-2A9B-4936-A7F3-27171BE8272D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9364476-2A9B-4936-A7F3-27171BE8272D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0F8ACAF-EDC1-43C4-B619-40459155C311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0F8ACAF-EDC1-43C4-B619-40459155C311}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0F8ACAF-EDC1-43C4-B619-40459155C311}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0F8ACAF-EDC1-43C4-B619-40459155C311}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4FB288C-D647-4C63-AB1C-9504CBCCFFB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{98089233-025C-45FE-972E-C218224A7157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{98089233-025C-45FE-972E-C218224A7157}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98089233-025C-45FE-972E-C218224A7157}.Release|Any CPU.ActiveCfg = Release|Any CPU
